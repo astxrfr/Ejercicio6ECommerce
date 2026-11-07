@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 import modelo.ApiIntegracion;
 
-/** Vista: toda la entrada/salida por consola vive aquí. */
 public class VistaConsola {
     private final Scanner scanner = new Scanner(System.in);
 

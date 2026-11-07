@@ -1,6 +1,5 @@
 package modelo;
 
-/** Courier internacional: suma aranceles a la cotización e incluye datos aduaneros en la guía. */
 public class CourierInternacional extends ProveedorLogistico {
     private final double tarifaPorKg;
     private final double arancelPorcentaje;
@@ -21,7 +20,6 @@ public class CourierInternacional extends ProveedorLogistico {
         return base * (1 + arancelPorcentaje / 100);
     }
 
-    /** Sobrescribe la guía base agregando la sección de aduana. */
     @Override
     public String generarDocumento() {
         return "<guiaEnvio><proveedor>" + getNombre() + "</proveedor><numero>" + siguienteGuia()

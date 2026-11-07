@@ -5,11 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-/** Modelo: contiene la ÚNICA lista polimórfica del sistema. */
 public class CatalogoIntegraciones {
     private final List<ApiIntegracion> integraciones = new ArrayList<>();
 
-    /** Agrega una integración; devuelve false si es nula o el id ya existe. */
     public boolean agregar(ApiIntegracion api) {
         if (api == null || integraciones.contains(api)) return false;
         return integraciones.add(api);
@@ -33,7 +31,6 @@ public class CatalogoIntegraciones {
         return integraciones.stream().filter(a -> a.getId().equals(buscado)).findFirst();
     }
 
-    /** Copia ordenada por latencia (usa compareTo de ApiIntegracion). */
     public List<ApiIntegracion> ordenadasPorLatencia() {
         List<ApiIntegracion> copia = new ArrayList<>(integraciones);
         Collections.sort(copia);

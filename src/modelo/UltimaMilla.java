@@ -1,6 +1,5 @@
 package modelo;
 
-/** Entregas de última milla: tarifa fija dentro de un radio de cobertura. */
 public class UltimaMilla extends ProveedorLogistico {
     private final double radioKm;
     private final double tarifaFija;

@@ -1,6 +1,5 @@
 package modelo;
 
-/** Courier con cobertura nacional y tarifa por kilogramo. */
 public class CourierNacional extends ProveedorLogistico {
     private final double tarifaPorKg;
     private final String cobertura;

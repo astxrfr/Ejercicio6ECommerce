@@ -9,10 +9,6 @@ import modelo.CatalogoIntegraciones;
 import modelo.Documentable;
 import modelo.Transaccional;
 
-/**
- * Controlador: coordina catálogo y operaciones. No conoce clases concretas, solo
- * ApiIntegracion y las interfaces; por eso una integración nueva no lo modifica.
- */
 public class ControladorIntegraciones {
     private final CatalogoIntegraciones catalogo;
 
@@ -20,14 +16,12 @@ public class ControladorIntegraciones {
         this.catalogo = catalogo;
     }
 
-    // ---- Funciones del menú ----
     public List<ApiIntegracion> listarActivas() { return catalogo.getActivas(); }
 
     public Optional<ApiIntegracion> buscarPorId(String id) { return catalogo.buscarPorId(id); }
 
     public List<ApiIntegracion> ordenarPorLatencia() { return catalogo.ordenadasPorLatencia(); }
 
-    // ---- Overloading con interfaces como parámetro ----
     public String ejecutar(Transaccional t, double monto) {
         return t.cobrar(monto) ? "Cobro de " + monto + " aprobado" : "Cobro de " + monto + " rechazado";
     }
@@ -41,7 +35,6 @@ public class ControladorIntegraciones {
 
     public String ejecutar(Auditable a) { return "Eventos registrados: " + a.getHistorial(); }
 
-    // ---- Despacho según capacidades; lo que no soporta se ignora sin excepción ----
     public String procesarCobro(ApiIntegracion api, double monto) {
         if (api instanceof Transaccional t) return ejecutar(t, monto);
         return noSoportada("cobro", api);
@@ -65,7 +58,6 @@ public class ControladorIntegraciones {
         return noSoportada("auditoría", api);
     }
 
-    /** Prueba las cuatro capacidades sobre una API para ver el polimorfismo en acción. */
     public List<String> simularCheckout(ApiIntegracion api) {
         List<String> resultado = new ArrayList<>();
         resultado.add("Cobro (Q100):     " + procesarCobro(api, 100));

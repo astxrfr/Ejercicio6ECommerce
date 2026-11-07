@@ -1,27 +1,43 @@
+package modelo;
+
 import java.util.List;
 
 public class CertificadorFEL extends ApiIntegracion implements Documentable, Auditable {
-    public CertificadorFEL(String id, String nombre, String proveedor, String url, EstadoConexion estadoConexion, double latenciaPromedioMs) {
-        super(id, nombre, proveedor, url, estadoConexion, latenciaPromedioMs);
+    private final String nitEmisor;
+    private final String serie;
+    private int facturasEmitidas = 0;
+    private final RegistroAuditoria auditoria = new RegistroAuditoria();
+
+    public CertificadorFEL(String id, String nombre, String proveedor, String url,
+                           EstadoConexion estado, double latenciaMs,
+                           String nitEmisor, String serie) {
+        super(id, nombre, proveedor, url, estado, latenciaMs);
+        this.nitEmisor = nitEmisor;
+        this.serie = serie;
     }
 
     @Override
-    public void registrarEvento(String evento) {
-        
-    }
-
-    @Override
-    public List<String> getHistorial() {
-        return List.of();
-    }
+    public String getTipo() { return "CERTIFICADOR_FEL"; }
 
     @Override
     public String generarDocumento() {
-        return "";
+        facturasEmitidas++;
+        registrarEvento("Factura " + serie + "-" + facturasEmitidas + " certificada");
+        return "<factura><emisorNit>" + nitEmisor + "</emisorNit><serie>" + serie
+                + "</serie><numero>" + facturasEmitidas + "</numero></factura>";
     }
 
     @Override
-    public String generarDocumento(String formato) {
-        return "";
+    public void registrarEvento(String evento) { auditoria.registrar(getId() + ": " + evento); }
+
+    @Override
+    public List<String> getHistorial() { return auditoria.getEventos(); }
+
+    public String getNitEmisor() { return nitEmisor; }
+    public String getSerie() { return serie; }
+
+    @Override
+    protected String getParametrosEspecificos() {
+        return "NIT emisor: " + nitEmisor + "\nSerie: " + serie;
     }
 }

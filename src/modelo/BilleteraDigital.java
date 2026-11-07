@@ -1,6 +1,5 @@
 package modelo;
 
-/** Billetera digital: rechaza cobros que superen su límite por transacción. */
 public class BilleteraDigital extends PasarelaPago {
     private final double limiteTransaccion;
 

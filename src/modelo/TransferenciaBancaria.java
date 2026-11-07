@@ -1,6 +1,5 @@
 package modelo;
 
-/** Transferencia bancaria: el cobro queda pendiente hasta la liquidación. */
 public class TransferenciaBancaria extends PasarelaPago {
     private final String bancoDestino;
     private final int diasLiquidacion;

@@ -1,6 +1,5 @@
 package modelo;
 
-/** Pasarela de tarjeta de crédito/débito: cobra comisión y devuelve a la tarjeta. */
 public class PasarelaTarjeta extends PasarelaPago {
     private final String ultimos4;
     private final boolean soporta3DS;
